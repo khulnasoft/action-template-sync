@@ -158,7 +158,7 @@ files:
   [`micromatch`]: https://github.com/micromatch/micromatch
 
 ----
-> Author: [Ahmad Nassri](https://www.khulnasoft.com/) &bull;
+> Author: [KhulnaSoft Ltd](https://www.khulnasoft.com/) &bull;
 > Twitter: [@khulnasoft](https://twitter.com/khulnasoft)
 
 [license-url]: LICENSE
