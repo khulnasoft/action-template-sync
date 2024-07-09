@@ -1,33 +1,25 @@
-# GitHub Action: Template Repository Sync
-
-Keep projects in sync with the template repository they came from
-
-[![license][license-img]][license-url]
-[![release][release-img]][release-url]
-[![semantic][semantic-img]][semantic-url]
-
 <details>
   <summary><strong>Why?</strong></summary>
 
-The [Template Repository][] feature is a great way to accelerate creation of new projects.
+The [Template Repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-template-repository) feature is a great way to accelerate creation of new projects.
 
-However, after you "use" the template for first time, the two repositories will forever be out of sync *(any changes made to the template repository will not be reflected in the project repository)*
+However, after you "use" the template for first time, the two repositories will forever be out of sync _(any changes made to the template repository will not be reflected in the project repository)_
 
 </details>
 
 ## Usage
 
-This action will **automatically** detect all repositories within your account *(user or org)* that has been "initialized" from the template repository *(referred to as "dependents" in this doc)*
+This action will **automatically** detect all repositories within your account _(user or org)_ that has been "initialized" from the template repository _(referred to as "dependents" in this doc)_
 
-> \[!NOTE\]
-> There is currently a [bug in the GitHub APIs][] preventing this action from automatically detecting dependent repositories, until this is tis resolved, please use `additional` property in the config file to manually include repositories you want to sync
+> [!NOTE]
+> There is currently a [bug in the GitHub APIs](https://github.com/github/docs/issues/4894) preventing this action from automatically detecting dependent repositories, until this is tis resolved, please use `additional` property in the config file to manually include repositories you want to sync
 
-> \[!IMPORTANT\]
-> MUST USE [Fine-grained Personal Access Token][], for whatever reason, Classic tokens stopped working with the "contents" scope, which is required for this action to work
+> [!IMPORTANT]
+> MUST USE [Fine-grained Personal Access Token][tokens], for whatever reason, Classic tokens stopped working with the "contents" scope, which is required for this action to work
 
 ###### `.github/workflows/template-sync.yml`
 
-``` yaml
+```yaml
 on: [push, pull_request]
 
 jobs:
@@ -45,7 +37,7 @@ jobs:
 <details>
   <summary><em>A more practical example</em></summary>
 
-``` yaml
+```yaml
 name: template-sync
 
 on:
@@ -71,12 +63,12 @@ jobs:
 
 </details>
 
-> \[!WARNING\]
+> [!WARNING] 
 > **HIGHLY RECOMMEND** to set `dry-run: true` for the first time you use this action, inspect the output to confirm if the affected repositories list is what you wanted to commit files to
 
 ###### `.github/template-sync.yml`
 
-``` yaml
+```yaml
 dependents:
   - "api-*" # include
   - "!lib-*" # exclude
@@ -120,7 +112,7 @@ a list of filename patterns to include or exclude
 
 ###### Example
 
-``` yaml
+```yaml
 files:
   # remap file names at destination repo
   - templates/.gitignore-example: .gitignore
@@ -128,16 +120,16 @@ files:
 
 #### Pattern syntax
 
-> \[!WARNING\]
+> [!WARNING] 
 > Always use forward-slashes in glob expressions and backslashes for escaping characters.
 
-> \[!TIP\]
-> This package uses a [`micromatch`][] as a library for pattern matching.
+> [!TIP]
+> This package uses a [`micromatch`](https://github.com/micromatch/micromatch) as a library for pattern matching.
 
 ### Inputs
 
 | input          | required | default                     | description                                  |
-|----------------|----------|-----------------------------|----------------------------------------------|
+| -------------- | -------- | --------------------------- | -------------------------------------------- |
 | `github-token` | ✔️       | `-`                         | The GitHub token used to call the GitHub API |
 | `config`       | ❌       | `.github/template-sync.yml` | path to config file                          |
 | `dry-run`      | ❌       | `false`                     | toggle info mode (commits wont occur)        |
@@ -147,25 +139,9 @@ files:
 - The action will only run on the following event types: `schedule`,`workflow_dispatch`,`repository_dispatch`,`pull_request`,`release`,`workflow_run`,`push`.
 - The when run in `pull_request`, the action will post post a comment on the the Pull Request with the diff view of files to be changed.
 - The action will look for files under the `GITHUB_WORKSPACE` environment path
-- The action will read file contents **AT RUNTIME** *(so you can run build steps or modify content before running the action if you so wish)*
+- The action will read file contents **AT RUNTIME** _(so you can run build steps or modify content before running the action if you so wish)_
 - If no config file is present indicating which files to filter, the action will sync **ALL FILES** in the template repository
 - The action will respect **`.gitignore`** files
 - Files on target repos **WILL BE CREATED** if they do not exist
 
-  [Template Repository]: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-template-repository
-  [bug in the GitHub APIs]: https://github.com/github/docs/issues/4894
-  [Fine-grained Personal Access Token]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens
-  [`micromatch`]: https://github.com/micromatch/micromatch
-
-----
-> Author: [Ahmad Nassri](https://www.khulnasoft.com/) &bull;
-> Twitter: [@khulnasoft](https://twitter.com/khulnasoft)
-
-[license-url]: LICENSE
-[license-img]: https://badgen.net/github/license/khulnasoft/action-template-sync
-
-[release-url]: https://github.com/khulnasoft/action-template-sync/releases
-[release-img]: https://badgen.net/github/release/khulnasoft/action-template-sync
-
-[semantic-url]: https://github.com/khulnasoft/action-template-sync/actions?query=workflow%3Arelease
-[semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
+[tokens]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens

@@ -1,0 +1,30 @@
+name: Template Repository Sync
+description: Keep projects in sync with the template repository they came from
+
+branding:
+  color: blue
+  icon: refresh-cw
+
+inputs:
+  github-token:
+    description: The GitHub token to use
+    required: true
+
+  config:
+    description: Path to configuration file (relative to root)
+    default: .github/template-sync.yml
+    required: false
+
+  dry-run:
+    description: dry-run mode
+    default: "false"
+    required: false
+
+  skip-ci:
+    description: If `true`, then the commit will not trigger CI pipelines.
+    default: "false"
+    required: false
+
+runs:
+  using: node20
+  main: dist/index.js
