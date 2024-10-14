@@ -32,7 +32,7 @@
     "globby": "^13.2.2",
     "micromatch": "^4.0.7",
     "punycode": "^2.3.1",
-    "yaml": "^2.5.1"
+    "yaml": "^2.6.0"
   },
   "devDependencies": {
     "microbundle": "^0.15.1",
