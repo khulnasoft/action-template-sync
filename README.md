@@ -2,7 +2,6 @@
 
 Keep projects in sync with the template repository they came from
 
-[![license][license-img]][license-url]
 [![release][release-img]][release-url]
 [![semantic][semantic-img]][semantic-url]
 
